@@ -1,0 +1,27 @@
+{
+  "pages":[
+     "pages/index",
+     "pages/logs/logs",
+     "pages/run/run",
+     "pages/animation/animation",
+     "pages/music/music"
+  ],
+
+
+  "window":{
+    "backgroundTextStyle":"black",
+    "navigationBarBackgroundColor": "#ffddae",
+    "navigationBarTitleText": "Running Man",
+    "navigationBarTextStyle":"black"
+  },
+   "tabBar": {
+    "list": [{
+      "pagePath": "pages/index",
+      "text": "首页",
+      "backgroundColor": "#adddaa"
+    }, {
+      "pagePath": "pages/logs/logs",
+      "text": "日志"
+    }]
+  }
+}
