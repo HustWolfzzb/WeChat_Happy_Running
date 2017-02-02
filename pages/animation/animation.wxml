@@ -1,0 +1,31 @@
+<import src="../common/header.wxml" />
+<import src="../common/footer.wxml" />
+
+<view class="container">
+<!--  <template is="header" data="{{title: 'createAnimation'}}"/>
+-->
+  <view class="page-body">
+    <view class="page-body-wrapper">
+      <view class="animation-element-wrapper">
+        <view class="animation-element" animation="{{animation}}"></view>
+      </view>
+      <view class="animation-buttons" scroll-y="true">
+        <button class="animation-button" bindtap="rotate">Rotate</button>
+        <button class="animation-button" bindtap="scale"> Scale</button>
+        <button class="animation-button" bindtap="translate">Translate</button>
+        <button class="animation-button" bindtap="skew">Skew</button>
+     
+        <button class="animation-button" bindtap="rotateAndScale">Rotate&Scale</button>
+        <button class="animation-button" bindtap="rotateThenScale">Rotate-Scale</button>
+        <button class="animation-button" bindtap="all">All</button>
+        <button class="animation-button" bindtap="allInQueue">All~</button>
+        <button class="animation-button-reset" bindtap="reset">Reset</button>
+                 <view class="page-body-info">上面分别是旋转、缩放、移动、倾斜</view>
+      </view>
+
+    </view>
+  </view>
+
+  <template is="footer" />
+</view>
+
