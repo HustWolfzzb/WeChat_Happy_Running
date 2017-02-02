@@ -1,0 +1,128 @@
+.index{
+    background-color: #Eeefaf;
+    font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+    flex: 1;
+    min-height: 100%;
+    font-size: 32rpx;
+}
+.header{
+    margin-top: 20;
+    line-height: 1;
+}
+.icon{
+    width: 60rpx;
+    height: 60rpx;
+    padding: 30;
+    margin-top: 20;
+    margin-bottom:20; 
+}
+.pic{
+    width: 800rpx;
+    height: 650rpx;
+    padding: 30;
+    margin-top: 20;
+    margin-bottom:100; 
+}
+
+
+.bigTitle{
+    font-size: 60rpx;
+    padding-left:  150rpx;
+    color: #556B2F;
+    position: center;
+}
+.title{
+    font-size: 60rpx;
+    
+}
+.desc{
+    margin-top: 15rpx;
+    color: #8B1A1A;
+    font-size: 30rpx;
+    padding-left:  90rpx;
+
+}
+
+
+.body{
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    overflow: hidden;
+}
+
+
+
+
+.navigator-hover {
+    color:cornsilk;
+    background-color: #8B1A1A;
+    padding-left: 250rpx;
+
+}
+
+
+.widget{
+    position: relative;
+    padding-top: 26rpx;
+    padding-bottom: 26rpx;
+    padding-left: 40rpx;
+    padding-right: 40rpx;
+}
+.widgets__item{
+    margin-top: 30rpx;
+    margin-bottom: 20rpx;
+    background-color: black;
+    overflow: hidden;
+    border-radius: 4rpx;
+    cursor: pointer;
+    padding-left: 100;
+}
+.widgets__info{
+    display: flex;
+    padding: 40rpx;
+    align-items: center;
+    flex-direction: row;
+}
+.widgets__info_show{
+}
+.widgets__info_show .widgets__info-img{
+    transform: rotate(-90deg);
+}
+.widgets__info-name{
+    flex: 1;
+}
+.widgets__info-img{
+    width: 32rpx;
+    height: 32rpx;
+    transition: transform .4s;
+    transform: rotate(90deg);
+}
+
+.widgets__list{
+    display: none;
+}
+.widgets__list_show{
+    display: block;
+}
+
+.widget__arrow{
+    position: absolute;
+    top: 28rpx;
+    right: 44rpx;
+    width: 32rpx;
+    height: 32rpx;
+}
+.widget__line{
+    content: " ";
+    position: absolute;
+    left: 40rpx;
+    top: 0;
+    right: 0;
+    height: 2rpx;
+    background-color: #F0F0F0;
+}
+.widget__line_first{
+    left: 0;
+    right: 0;
+    background-color: #D8D8D8;
+}
