@@ -1,0 +1,21 @@
+
+.banner{
+    width: 800rpx;
+    height: 100rpx;
+
+}
+
+.pic{
+    width: 750rpx;
+    height: 900rpx;
+    padding: 30;
+    margin-top: 20;
+    margin-bottom:100; 
+}
+
+.button_anniu{
+    width: 30rpx;
+    height:30rpx
+    ;
+
+}

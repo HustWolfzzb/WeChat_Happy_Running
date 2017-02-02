@@ -1,0 +1,32 @@
+
+<view class="header" style="flex-direction:row;">
+
+
+<!--<button bindtap="{{changebanner}}">
+<image class="banner" src="/resources/banner{{count}}.png"></image>   
+</button>
+-->
+
+
+
+<swiper indicator-dots="{{indicatorDots}}"
+  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+  <block wx:for="{{imgUrls}}">
+    <swiper-item>
+      <image src="{{item}}" class="slide-image" class="banner"/>
+    </swiper-item>
+  </block>
+</swiper>
+    <image class="pic" src="/resources/Carly.png" mode="scaletoFill"/>
+
+<audio poster="{{poster}}" name="{{name}}" author="{{author}}" src="{{src}}" id="myAudio" controls="true" >
+
+<button type="primary" bindtap="audioPlay">开始播放</button>
+<button type="primary" bindtap="audioPause">暂停</button>
+<button type="primary" bindtap="audio14">设置当前播放时间为14秒</button>
+<button type="primary" bindtap="audioStart">停止</button>
+</audio>
+
+</view>
+
+
