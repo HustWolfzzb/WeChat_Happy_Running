@@ -8,7 +8,7 @@
 .animation-element {
   width: 200rpx;
   height: 200rpx;
-  background-color: #000080;
+  background-color: #00Da80;
 }
 .animation-buttons {
   padding: 50rpx 50rpx 10rpx;
