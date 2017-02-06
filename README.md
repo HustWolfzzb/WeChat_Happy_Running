@@ -1,252 +1,183 @@
 #开篇语
->前几天发了一篇：
+>前几天发了一篇练手文章，不出意外地火了：
 [《简年15： 微信小程序（有始有终，全部代码）开发---跑步App+音乐播放器 》](http://www.jianshu.com/p/9f5fd83aad52)
-后来又发了BUG修复的版本：
+后来又发了BUG修复的版本，出乎意料的火了：
 [简年18： 微信小程序（有始有终，全部代码）开发---跑步App+音乐播放器 Bug修复](http://www.jianshu.com/p/c2f9034baca7)
-本来以为这篇文章要沉底了。结果，一不小心貌似又出事了：
-
-![本来以为这篇文章要沉底了。结果，一不小心貌似又出事了](http://upload-images.jianshu.io/upload_images/3810775-937895906233bd15.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
->经过两天的同学聚会，我今天下午五点多到家，然后马不停蹄的开始进行了新模块的测试。这次有点不知道干嘛，但是突然想到要不要调用一下手机的硬件模块？最经典的自然就是照片了吗。微信的那个拍照功能看的我还很眼馋的！所以回来就想着加了个选取照片的模块上去。万幸，随着技术的逐渐进步，现在很快的就可以引入一些API和组件！哈哈，接下来展示下我的成果！
-
-
+昨晚又新增了一个模块，嗯，这个还没火：
+[微信小程序（有始有终，全部代码）开发--- 新增模块： 图片选取以及拍照功能](http://www.jianshu.com/p/c4b4b56a95ff)
 
 
 #正文
->这次回来，暂时只加了一个图片选取以及预览模块。虽然我说的很顺利，但是确实也经历了很多的Debug，现在对Bug简直是又爱又恨，爱恨交织，没有她让我觉得不真实，有了它让我很苦恼！所以我的Debug过程还是不放出来了！
+####一、UI改进
+>今天本来想就此罢手，但是没办法，手痒难耐，所以又加了个在线放视频的功能。同时调整了下以前的一些代码，比如一些的UI设计增进了。```.WXSS```文件也被我丰富了一点点。那些不影响功能的我就没有细说了，代码已经全部更新于Github，欢迎大家去查看：
+[https://github.com/HustWolfzzb/WeChat-Fucking_Running.git](https://github.com/HustWolfzzb/WeChat-Fucking_Running.git)
+更新之后的页面更加漂亮了。当然，功能也稍微提高了点：
 
-####一、图片选择功能
->从本地相册选择图片或使用相机拍照
-
-```
-wx.chooseImage(OBJECT)
-
-```
+![请忽略下面那两个大头，按照自己的喜好去找替代的图片](http://upload-images.jianshu.io/upload_images/3810775-dba38b20b304177d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
-![参数说明](http://upload-images.jianshu.io/upload_images/3810775-7026138dace16215.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-
-
-![效果图，设置为一开始为Carly Rae Jeepson](http://upload-images.jianshu.io/upload_images/3810775-82d1bb4ef1085ee4.gif?imageMogr2/auto-orient/strip)
-
-
-
->使用过程如下：
+>更新的代码如下，是在```app.json```这个文件下作的更改：
 
 ```
-wx.chooseImage({
-  count: 1, // 默认9
-  sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-  sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-  success: function (res) {
-    // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-    var tempFilePaths = res.tempFilePaths
-  }
-})
-```
 
-
->代码镶嵌在原本的代码框架中就是现在这样：
-
-
-**《---picture.js》**
-```
-//index.js
-//获取应用实例
-var app = getApp()
-Page({
-  data: {
-source:"",
+  "window":{
+    "backgroundTextStyle":"black",
+    "navigationBarBackgroundColor": "#ffddae",
+    "navigationBarTitleText": "Running Man",
+    "navigationBarTextStyle":"black"
   },
+   "tabBar": {
+    
 
-  
- listenerButtonChooseImage: function() {
-      var that = this;
-      wx.chooseImage({
-          count: 1,
-          //original原图，compressed压缩图
-          sizeType: ['original'],
-          //album来源相册 camera相机 
-          sourceType: ['album', 'camera'],
-          //成功时会回调
-          success: function(res) {
-                //重绘视图
-              that.setData({
-                  source: res.tempFilePaths,
-                             })
+    "list": [{
+      "pagePath": "pages/index",
 
-wx.previewImage({
-   current: 'http://119.29.74.46/myphoto/0.jpg', // 当前显示图片的链接，不填则默认为 urls 的第一张
-  urls: [ 'http://119.29.74.46/myphoto/0.jpg',
-   'http://119.29.74.46/myphoto/1.jpg',
-    'http://119.29.74.46/myphoto/2.jpg',
-     'http://119.29.74.46/myphoto/3.jpg',
-      'http://119.29.74.46/myphoto/4.jpg'
-      , 'http://119.29.74.46/myphoto/5.jpg',
-       'http://119.29.74.46/myphoto/6.jpg',
-        'http://119.29.74.46/myphoto/7.jpg'],
-  success: function(res){
+      "backgroundColor": "#adddaa",
+       "iconPath":"/resources/yan1.jpg",
+       "selectedIconPath":"/resources/yan1.jpg"
+    }, {
+      "pagePath": "pages/logs/logs",
 
-   
-  },
-  fail: function() {
-    // fail
-  },
-  complete: function() {
-    // complete
-  }
-})          }
-      })
-  },
-  
-   onShareAppMessage: function () {
-    return {
-      title: '欢迎使用颜大傻牌跑步计',
-      desc: '将你的战绩分享到~~~',
-      path: '/page/picture/picture.js'
+       "iconPath":"/resources/yan2.jpg",
+       "selectedIconPath":"/resources/yan2.jpg"
     }
-  },
+    ],
+    "color": "#ad8888",
+    "backgroundColor": "#fdfdae"
+  }
+```
+
+####二、废物利用
+>大家伙还记得我一直吐槽的莫名其妙的动画界面吗？现在算是废物利用，我给它增开了一个组件，就是今天的主角--```video```。顾名思义，就是视频播放。内容的话选择了我比较喜欢的东京食尸鬼。不过由于第一季的画质较高，转码估计要转到我开学，所以我就选择了画质较差的第二季。但是手机用户的观看体验应该也差不了多少。文件格式采用的是webm，也就是通用的web播放流媒体的视频文件格式。
+
+![本地文件。上传至服务器端也是这样命名的](http://upload-images.jianshu.io/upload_images/3810775-7525241e8fb43713.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+>代码更新如下：
+
+**<animation.js>**
+```
+
+  data:{
+// Chapters:[1,2,3,4,5,6,7,8,9,10,11,12],
+chapter:0
+},
+
+Next:function(){
+this.setData(
+{
+  chapter:this.data.chapter + 1
 })
-
+},
+  Last:function(){
+    this.setData(
+    {
+      chapter:this.data.chapter - 1
+    })
+  },
 ```
 
-**《---picture.wxml》**
+
+**<animation.wxml>**
 ```
+<import src="../common/header.wxml" />
+<import src="../common/footer.wxml" />
 
-<view class="header" style="flex-direction:row;">
-
-<!--通过数据绑定的方式动态获取js数据-->
-<image src="{{source}}" mode="fulltoFill"  class="pic"/>
-
-<!--监听按钮-->
-<button type="primary" bindtap="listenerButtonChooseImage" class="button_anniu">点击我选择相册</button>
+<label class="label" type="primary">东京食尸鬼第{{chapter}}集</label>
+<video class="video" src="http://119.29.74.46/Dj/Dj_{{chapter}}.webm"   objectFit="contain"></video>
 
 
-<button bindtap="" class="button_anniu"> 发布 </button>
+
+<button bindtap="Last">上一集</button>
+<button bindtap="Next">下一集</button>
+
+
+<view class="container">
+<!--  <template is="header" data="{{title: 'createAnimation'}}"/>
+-->
+  <view class="page-body">
+    <view class="page-body-wrapper">
+      <view class="animation-element-wrapper">
+        <view class="animation-element" animation="{{animation}}"></view>
+      </view>
+      <view class="animation-buttons" scroll-y="true">
+        <button class="animation-button" bindtap="rotate">Rotate</button>
+        <button class="animation-button" bindtap="scale"> Scale</button>
+        <button class="animation-button" bindtap="translate">Translate</button>
+        <button class="animation-button" bindtap="skew">Skew</button>
+     
+        <button class="animation-button" bindtap="rotateAndScale">Rotate&Scale</button>
+        <button class="animation-button" bindtap="rotateThenScale">Rotate-Scale</button>
+        <button class="animation-button" bindtap="all">All</button>
+        <button class="animation-button" bindtap="allInQueue">All~</button>
+        <button class="animation-button-reset" bindtap="reset">Reset</button>
+                 <view class="page-body-info">上面分别是旋转、缩放、移动、倾斜</view>
+      </view>
+
+    </view>
+  </view>
+
+  <template is="footer" />
 </view>
 ```
 
+![效果图](http://upload-images.jianshu.io/upload_images/3810775-3a5954cfe29f9452.gif?imageMogr2/auto-orient/strip)
 
->整体的文件架构图如下：
+>本次更改，其实还是有问题残留的，因为我暂时没找到办法获取wxml文件中的数值传到js文件中的办法。大家可以看到上面的js文件中的data里面有一个Chapters被注释了。我的本来的想法是利用wx:for="{{Chapters}}"来直接把所有的视频链接做成按钮放到页面上去的。就类似下面的这样:
 
-![代码框架图](http://upload-images.jianshu.io/upload_images/3810775-995d2585be46b5d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-####二、增置了图片预览
->图片预览功能需要服务器端的配置。所以，今后这可能是作为一个网站架构，成为某种服务性的商业软件的需要。配置服务器的小程序相对于功能性的来说要麻烦点，因为需要服务端的配合。但是幸亏我手头有几个空置的云服务器，所以就直接拿来写了一个这种东西。后期可能会直接开发一个类似于朋友圈的，可以把图片放到服务器上去。附上文字，然后慢慢的形成一个闭环的圈子。当然这是我的想法， 目前小程序只是玩耍的工具。
+![每一集配备一个按钮，羡慕](http://upload-images.jianshu.io/upload_images/3810775-e2cf1a407813a514.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+> 很可惜的没有成功回调wxml中的item的id，看我网上的大神说，利用wx:for-index可以回调id号，然后利用currentTarget.id;获取id并导入js文件中，但是很可惜我并没有成功。不过如果最后还是不行的话，可以采用蠢办法：一个按钮一个事件绑定的野路子。这样不需要什么的回调，你选择哪个按钮，我就给你专门的写一个事件，反正一部动漫，写死了也就几十个按钮事件绑定，而且代码重用率接近99%，意思就是说：复制一下代码，然后改一两个参数就可以了。但是这样很蠢，所以我希望可以找到更好的办法。目前来看，还没找到，如果找到了，后期我会写在评论中。小程序最近玩的很多了。要换点花样了。然后，后天就去学校了，真是悲伤。在家的效率很低，但是胜在自由灵活在。在学校，有点怕！
 
 
----------
->图片预览功能其实很简单，就是把服务器端的图片下载下来进行一种压缩格式的预览。稍后容我一一道来。目前这个功能，怎么来说呢，其实就是个鸡肋。因为我的图片大多是本地文件，要不就是直接加载的服务端的图片，预览这个作用实在让我难以找到用途。不过，如果今后真要布置一个圈子的话，这一点又是必不可少的。毕竟预览这个功能可以省下巨多流量！
+----
+>作为半个强迫症，我怎么着都想着改善UI 所以刚刚发觉那个上一集下一集的按钮很丑，而且上边的label部队称，所以换了个我比较喜欢的，把样式文件改了下，好看了不少了：
 
-**《picture.js》**
 
+![好看不少了](http://upload-images.jianshu.io/upload_images/3810775-c37a1a5980fd681c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+>具体改动了：
+
+**<animation.wxss>**
 ```
-//index.js
-//获取应用实例
-var app = getApp()
-Page({
-  data: {
-source:"http://159.203.250.111/Carly.png",
-  },
-
-  
- listenerButtonChooseImage: function() {
-      var that = this;
-      wx.chooseImage({
-          count: 1,
-          //original原图，compressed压缩图
-          sizeType: ['original'],
-          //album来源相册 camera相机 
-          sourceType: ['album', 'camera'],
-          //成功时会回调
-          success: function(res) {
-                //重绘视图
-              that.setData({
-                  source: res.tempFilePaths,
-                             })
-
-          }
-      })
-  },
-  
-  yulan:function(){
-    wx.previewImage({
-   current: 'http://119.29.74.46/myphoto/0.jpg', // 当前显示图片的链接，不填则默认为 urls 的第一张
-  urls: [ 'http://119.29.74.46/myphoto/0.jpg',
-   'http://119.29.74.46/myphoto/1.jpg',
-    'http://119.29.74.46/myphoto/2.jpg',
-     'http://119.29.74.46/myphoto/3.jpg',
-      'http://119.29.74.46/myphoto/4.jpg',
-       'http://119.29.74.46/myphoto/5.jpg',
-       'http://119.29.74.46/myphoto/6.jpg',
-        'http://119.29.74.46/myphoto/7.jpg'],
-  success: function(res){
-
-   
-  },
-  fail: function() {
-    // fail
-  },
-  complete: function() {
-    // complete
-  }
-})
-  },
-
-   onShareAppMessage: function () {
-    return {
-      title: '欢迎使用颜大傻牌跑步计',
-      desc: '将你的战绩分享到~~~',
-      path: '/page/picture/picture.js'
-    }
-  },
-})
+.page-body-wrapper {
+  flex-grow: 1;
+}
+.index{
+    background-color: #Eeefaf;
+    font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+    flex: 1;
+    min-height: 100%;
+    font-size: 32rpx;
+}
+.label
+{
+  width: 750rpx;
+  position:center;
+  padding-left: 250rpx
+}
 ```
 
-**《picture.wxml》**
-```
-<view class="header" style="flex-direction:row;">
-
-<!--通过数据绑定的方式动态获取js数据-->
-<image src="{{source}}" mode="fulltoFill"  class="pic"/>
-
-<!--监听按钮-->
-<button type="primary" bindtap="listenerButtonChooseImage" class="button_anniu">点击我选择相册</button>
-
-<button bindtap="yulan"><image src="/resources/yulan.png"  class="swiper"></image></button>
-<button bindtap="" class="button_anniu"> 发布 </button>
-</view>
-
+**<animation.wxml>**
 ```
 
+<button type="primary" bindtap="Last">上一集</button>
 
-![效果图](http://upload-images.jianshu.io/upload_images/3810775-2b574b634ef823f6.gif?imageMogr2/auto-orient/strip)
-
->预览功能的原理很简单，其实就是给你一个按钮，绑定一个事件。这个事件就是向服务器请求预览图片加载，所谓预览图片加载呢。其实就是一个压缩过的，低像素的图片啦。然后给你发送过来，你就完成了所谓的预览。
-
-
-![服务器端远程控制界面。好吧，这就是为了震慑一下看到此文的小白玩家的。大神们就不要笑我了。](http://upload-images.jianshu.io/upload_images/3810775-3ebfc66692fb3e58.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-
+<button type="primary" bindtap="Next">下一集</button>
+```
 #结束语
->小程序算是假期的一个调剂吧，不然可能就真的天天看小说，然后逛逛B站了。昨天跟今天同学聚会，现在弄完了。在家还有三四天，好好珍惜，天天学习。争取做一个更好的我自己!
+>小程序算是假期的一个调剂吧，不然可能就真的天天看小说，然后逛逛B站了。额，不知道有没有追看我的文章的body（除了我已知的那位）？很Sorry，明天可能就会很少更新了。后天去县城，大后天到学校。然后我就要开始我的拼命三郎之路了。如果下学期运气够好，计算机三四级一刀斩，成绩分数够我保研，那么以后我估计爆文多的是，如果运气不够，那么以后我估计就会坎坷了。在家积蓄了一个月的洪荒之力，已经按耐不住了。去了学校，看命吧！
 
-![快夸我](http://upload-images.jianshu.io/upload_images/3810775-6db9c032d7c399bb.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-
-
---------------
-
->写完教程片之后第一个项目性的完整文章：
-[简年15： 微信小程序（有始有终，全部代码）开发---跑步App+音乐播放器](http://www.jianshu.com/p/9f5fd83aad52)
-
->Bug修复：调整了Banner以及插入了音乐切换功能。
-[简年18： 微信小程序（有始有终，全部代码）开发---跑步App+音乐播放器 Bug修复](http://www.jianshu.com/p/c2f9034baca7)
+![现在学校群最火的图](http://upload-images.jianshu.io/upload_images/3810775-4506404e0beb5c39.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
 
-![全部功能的展示。飞速，可能看不清，如果有兴趣请你看文章！](http://upload-images.jianshu.io/upload_images/3810775-105596917837c8b6.gif?imageMogr2/auto-orient/strip)
+
+
+![全部功能的展示。飞速，可能看不清，如果有兴趣请你看文章！](http://upload-images.jianshu.io/upload_images/3810775-34c690fd8a2d59f9.gif?imageMogr2/auto-orient/strip)
+
+
+
+>另外，明天可能开始看看机器学习的内容。有兴趣的朋友可以跟上。恩，当然，也许是iOS的开发，还没准备干嘛但是总是要找点事情干的。讲不好发现别的不好玩，又回来折腾小程序了呢！
+
 
 
 #个人宣言
