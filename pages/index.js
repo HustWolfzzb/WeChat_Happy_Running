@@ -12,6 +12,10 @@ Page({
         id: 'music',
         name: '音乐',
       },
+            {
+        id: 'picture',
+        name: '图片',
+      },
     ],
 
 
