@@ -172,6 +172,7 @@ this.setData(
 
 
 
+
 ![全部功能的展示。飞速，可能看不清，如果有兴趣请你看文章！](http://upload-images.jianshu.io/upload_images/3810775-34c690fd8a2d59f9.gif?imageMogr2/auto-orient/strip)
 
 
@@ -179,6 +180,49 @@ this.setData(
 >另外，明天可能开始看看机器学习的内容。有兴趣的朋友可以跟上。恩，当然，也许是iOS的开发，还没准备干嘛但是总是要找点事情干的。讲不好发现别的不好玩，又回来折腾小程序了呢！
 
 
+
+>诸君，拔剑吧！你们要的弹幕君来了。。容我展示下：
+
+
+![我精心制作的弹幕，心累死我了](http://upload-images.jianshu.io/upload_images/3810775-9f76c094605dd8db.gif?imageMogr2/auto-orient/strip)
+
+
+
+>更新之后的代码节选，对照前面的就可以直接找出我修改了哪些地方了！
+
+**<animation.js>**
+```
+function getRandomColor () {
+  let rgb = []
+  for (let i = 0 ; i < 3; ++i){
+    let color = Math.floor(Math.random() * 256).toString(16)
+    color = color.length == 1 ? '0' + color : color
+    rgb.push(color)
+  }
+  return '#' + rgb.join('')
+} 
+
+Page({
+  onReady: function () {
+     this.videoContext = wx.createVideoContext('myVideo')
+    this.animation = wx.createAnimation({
+  transformOrigin: "50% 50%",
+  duration: 1000,
+  timingFunction: "ease",
+  delay: 0
+})
+```
+**<animation.wxml>**
+```
+<video  id="myVideo" class="video" src="http://119.29.74.46/Dj/Dj_{{chapter}}.webm"   objectFit="contain" danmu-list="{{danmuList}}" enable-danmu danmu-btn controls></video>
+
+
+   <input bindblur="bindInputBlur" placeholder="来这儿输入你的弹幕！倾泻弹药吧！"/>
+    <button type="primary" bindtap="bindSendDanmu">发送弹幕</button>
+<button type="primary" bindtap="Last">上一集</button>
+
+<button type="primary" bindtap="Next">下一集</button>
+```
 
 #个人宣言
 >知识传递力量，技术无国界，文化改变生活！
