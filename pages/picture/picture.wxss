@@ -1,14 +1,14 @@
 
 .banner{
-    width: 800rpx;
+    width: 750rpx;
     height: 80rpx;
    position: center;
 
 }
 
 .pic{
-    width: 800rpx;
-    height: 900rpx;
+    width: 750rpx;
+    height: 850rpx;
     padding: 75;
     margin-top: 20;
     margin-bottom:100; 
@@ -17,7 +17,7 @@
 
 
 .button_anniu{
-    width: 800rpx;
+    width: 750rpx;
     height:100rpx;
 
 }
