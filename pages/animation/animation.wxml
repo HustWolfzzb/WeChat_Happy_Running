@@ -2,10 +2,11 @@
 <import src="../common/footer.wxml" />
 <view class="index">
 <label class="label" type="primary">东京食尸鬼第{{chapter}}集</label>
-<video class="video" src="http://119.29.74.46/Dj/Dj_{{chapter}}.webm"   objectFit="contain"></video>
+<video  id="myVideo" class="video" src="http://119.29.74.46/Dj/Dj_{{chapter}}.webm"   objectFit="contain" danmu-list="{{danmuList}}" enable-danmu danmu-btn controls></video>
 
 
-
+   <input bindblur="bindInputBlur" placeholder="来这儿输入你的弹幕！倾泻弹药吧！"/>
+    <button type="primary" bindtap="bindSendDanmu">发送弹幕</button>
 <button type="primary" bindtap="Last">上一集</button>
 
 <button type="primary" bindtap="Next">下一集</button>
