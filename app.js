@@ -24,6 +24,9 @@ App({
       })
     }
   },
+  onShow:function(){
+    console.log('I will be used ')
+  },
   globalData:{
     userInfo:null
     

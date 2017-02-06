@@ -4,7 +4,9 @@
      "pages/logs/logs",
      "pages/run/run",
      "pages/animation/animation",
-     "pages/music/music"
+     "pages/music/music",
+     "pages/picture/picture"
+
   ],
 
 
@@ -15,13 +17,22 @@
     "navigationBarTextStyle":"black"
   },
    "tabBar": {
+    
+
     "list": [{
       "pagePath": "pages/index",
-      "text": "首页",
-      "backgroundColor": "#adddaa"
+
+      "backgroundColor": "#adddaa",
+       "iconPath":"/resources/yan1.jpg",
+       "selectedIconPath":"/resources/yan1.jpg"
     }, {
       "pagePath": "pages/logs/logs",
-      "text": "日志"
-    }]
+
+       "iconPath":"/resources/yan2.jpg",
+       "selectedIconPath":"/resources/yan2.jpg"
+    }
+    ],
+    "color": "#ad8888",
+    "backgroundColor": "#fdfdae"
   }
 }
