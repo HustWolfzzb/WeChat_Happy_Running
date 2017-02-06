@@ -1,0 +1,12 @@
+
+<view class="header" style="flex-direction:row;">
+
+<!--通过数据绑定的方式动态获取js数据-->
+<image src="{{source}}" mode="fulltoFill"  class="pic"/>
+
+<!--监听按钮-->
+<button type="primary" bindtap="listenerButtonChooseImage" class="button_anniu">点击我选择相册</button>
+
+<button bindtap="yulan"><image src="/resources/yulan.png"  class="swiper"></image></button>
+<button bindtap="" class="button_anniu"> 发布 </button>
+</view>

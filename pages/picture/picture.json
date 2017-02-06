@@ -1,0 +1,22 @@
+{
+    "navigationBarTitleText": "听完歌，来一发自拍show吧",
+   "tabBar": {
+    
+
+    "list": [{
+      "pagePath": "pages/index",
+
+      "backgroundColor": "#adddaa",
+       "iconPath":"/resources/yan1.jpg",
+       "selectedIconPath":"/resources/yan1.jpg"
+    }, {
+      "pagePath": "pages/logs/logs",
+
+       "iconPath":"/resources/yan2.jpg",
+       "selectedIconPath":"/resources/yan2.jpg"
+    }
+    ],
+    "color": "#ad8888",
+    "backgroundColor": "#fdfdae"
+  }
+}

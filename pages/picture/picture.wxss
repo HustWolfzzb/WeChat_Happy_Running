@@ -1,0 +1,29 @@
+
+.banner{
+    width: 800rpx;
+    height: 80rpx;
+   position: center;
+
+}
+
+.pic{
+    width: 800rpx;
+    height: 900rpx;
+    padding: 75;
+    margin-top: 20;
+    margin-bottom:100; 
+}
+
+
+
+.button_anniu{
+    width: 800rpx;
+    height:100rpx;
+
+}
+
+.swiper{
+    width: 100rpx;
+    height: 80rpx;
+    position: center;
+}
