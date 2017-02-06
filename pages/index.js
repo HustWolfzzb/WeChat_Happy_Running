@@ -1,4 +1,9 @@
 Page({
+    onLoad: function(options) {
+    this.setData({
+      title: options.title
+    })
+  },
   data: {
     pageNames: [
       {
@@ -17,10 +22,17 @@ Page({
         name: '图片',
       },
     ],
+    time:'', 
 
 
   },
-
+showTime:function(){
+  this.setData()
+  {
+    time:this.data.time=util.formatTime()
+  }
+  
+},
     onShareAppMessage: function () {
     return {
       title: '欢迎使用颜大傻牌多功能APP',
