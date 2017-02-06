@@ -1,5 +1,15 @@
 <import src="../common/header.wxml" />
 <import src="../common/footer.wxml" />
+<view class="index">
+<label class="label" type="primary">东京食尸鬼第{{chapter}}集</label>
+<video class="video" src="http://119.29.74.46/Dj/Dj_{{chapter}}.webm"   objectFit="contain"></video>
+
+
+
+<button type="primary" bindtap="Last">上一集</button>
+
+<button type="primary" bindtap="Next">下一集</button>
+
 
 <view class="container">
 <!--  <template is="header" data="{{title: 'createAnimation'}}"/>
@@ -29,3 +39,4 @@
   <template is="footer" />
 </view>
 
+</view>

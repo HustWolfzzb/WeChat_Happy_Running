@@ -8,6 +8,25 @@ Page({
 })
 
   },
+
+
+  data:{
+// Chapters:[1,2,3,4,5,6,7,8,9,10,11,12],
+chapter:0
+},
+
+Next:function(){
+this.setData(
+{
+  chapter:this.data.chapter + 1
+})
+},
+  Last:function(){
+    this.setData(
+    {
+      chapter:this.data.chapter - 1
+    })
+  },
   rotate: function () {
     this.animation.rotate(Math.random() * 720 - 360).step()
     this.setData({ animation: this.animation.export() })
@@ -57,5 +76,13 @@ Page({
                   .skew(0, 0)
                   .step({ duration: 0 })
     this.setData({ animation: this.animation.export() })
-  }
+  },
+    
+   onShareAppMessage: function () {
+    return {
+      title: '欢迎使用颜大傻牌音乐播放器',
+      desc: '将你正在听的歌分享到~~~',
+      path: '/page/animation/animation.js'
+    }
+  },
 })
