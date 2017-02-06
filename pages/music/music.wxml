@@ -2,13 +2,6 @@
 <view class="header" style="flex-direction:row;">
 
 
-<!--<button bindtap="{{changebanner}}">
-<image class="banner" src="/resources/banner{{count}}.png"></image>   
-</button>
--->
-
-
-
 <swiper  class="swiper" indicator-dots="{{indicatorDots}}"
   autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" width="100" height="10">
     <swiper-item wx:for="{{imgUrls}}">
@@ -17,12 +10,9 @@
 </swiper>
 
 
-
-    <image class="pic" src="/resources/Carly.png" mode="fulltoFill"/>
-
-
-
-<block wx:for="{{song}}" wx:key="id">
+<image src="/resources/Carly.png" class="pic"></image>
+<view>
+<block wx:for="{{song}}" wx:key="id" class="audio">
 <block wx:if="{{item.musicid==count}}"> 
 
 <audio poster="{{item.poster}}" name="{{item.name}}" author="{{item.author}}" src="{{item.src}}" id="myAudio" controls="true" >
@@ -31,12 +21,13 @@
 <button type="primary" bindtap="audioPause" class="button_anniu">暂停</button>
 <button type="primary" bindtap="audio14" class="button_anniu">设置当前播放时间为14秒</button>
 <button type="primary" bindtap="audioStart" class="button_anniu">停止</button>
-
+<button type="primary" bindtap="NextMusic" class="button_anniu"> 下一首 </button>
+<button  type="primary" bindtap="LastMusic" class="button_anniu">上一首 </button>
 </audio>
 </block>
 </block>
-<button bindtap="NextMusic" class="button_anniu"> 下一首 </button>
-<button bindtap="LastMusic" class="button_anniu">上一首 </button>
+
+</view>
 </view>
 
 
