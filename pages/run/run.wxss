@@ -1,7 +1,7 @@
 
 .icon{
-    width: 1rpx;
-    height: 1rpx;
+    width: 60rpx;
+    height: 60rpx;
     margin-top: 20;
     margin-bottom:10; 
 }

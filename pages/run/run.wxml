@@ -1,6 +1,6 @@
 
 <view class="header" style="flex-direction:row;">
-    <image class="icon" src="/resources/fuck.png" mode="aspectFill"/>
+    <image class="icon" src="/resources/fuckrun.png" mode="aspectFill"/>
     <button bindtap="openLocation">打开位置</button>
     <button bindtap="starRun">开始跑步</button>
     <button bindtap="stopRun">暂停跑步</button>
