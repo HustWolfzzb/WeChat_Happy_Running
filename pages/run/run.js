@@ -18,7 +18,8 @@ function count_down(that) {
       that.updateTime(time);
     }
 
-  	if (countTooGetLocation >= 2000) { //1000为1s
+  	if (countTooGetLocation >= 2000) { 
+      //1000为1s
         that.getLocation();
         countTooGetLocation = 0;
   	}   
