@@ -19,4 +19,12 @@
     </view>
 </view>
 
-<navigator url="http://119.29.74.46" hover-class="navigator-hover" open-type="redirect"><image  class="pic" src="/resources/ok.jpg" mode="aspectFill"/></navigator>
+
+ <scroll-view scroll-y="true" style="height: 630rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+
+<image  class="pic" src="/resources/run2.png" mode="aspectFill"/>
+<image  class="pic" src="/resources/run1.png" mode="aspectFill"/>
+<image  class="pic" src="/resources/run0.png" mode="aspectFill"/>
+
+
+</scroll-view>

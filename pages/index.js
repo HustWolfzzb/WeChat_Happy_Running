@@ -19,7 +19,7 @@ Page({
       },
             {
         id: 'picture',
-        name: '图片',
+        name: '影音',
       },
     ],
     time:'', 

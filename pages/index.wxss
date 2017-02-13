@@ -17,8 +17,8 @@
     margin-bottom:20; 
 }
 .pic{
-    width: 800rpx;
-    height: 650rpx;
+    width: 750rpx;
+    height: 630rpx;
     padding: 30;
     margin-top: 20;
     margin-bottom:100; 
