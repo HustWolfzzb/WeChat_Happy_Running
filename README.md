@@ -1,228 +1,345 @@
 #开篇语
->前几天发了一篇练手文章，不出意外地火了：
+>寒假发了一篇练手文章，不出意外地火了：
 [《简年15： 微信小程序（有始有终，全部代码）开发---跑步App+音乐播放器 》](http://www.jianshu.com/p/9f5fd83aad52)
 后来又发了BUG修复的版本，出乎意料的火了：
 [简年18： 微信小程序（有始有终，全部代码）开发---跑步App+音乐播放器 Bug修复](http://www.jianshu.com/p/c2f9034baca7)
-昨晚又新增了一个模块，嗯，这个还没火：
+后来又新增了一个模块，嗯，这个也火了：
 [微信小程序（有始有终，全部代码）开发--- 新增模块： 图片选取以及拍照功能](http://www.jianshu.com/p/c4b4b56a95ff)
+现在开学了，我又写了点东西：
+[微信小程序（有始有终，全部代码）开发--- 新增【录音】以及UI改进](http://www.jianshu.com/p/90d7768c8a4f)
+
+
 
 
 #正文
 ####一、UI改进
->今天本来想就此罢手，但是没办法，手痒难耐，所以又加了个在线放视频的功能。同时调整了下以前的一些代码，比如一些的UI设计增进了。```.WXSS```文件也被我丰富了一点点。那些不影响功能的我就没有细说了，代码已经全部更新于Github，欢迎大家去查看：
+>本来想要就此封笔，但是最近觉得要找点事情干，所以还是写一写吧。同时调整了下以前的一些代码，比如一些的UI设计增进了。代码已经全部更新于Github，欢迎大家去查看：
 [https://github.com/HustWolfzzb/WeChat-Fucking_Running.git](https://github.com/HustWolfzzb/WeChat-Fucking_Running.git)
-更新之后的页面更加漂亮了。当然，功能也稍微提高了点：
-
-![请忽略下面那两个大头，按照自己的喜好去找替代的图片](http://upload-images.jianshu.io/upload_images/3810775-dba38b20b304177d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
->更新的代码如下，是在```app.json```这个文件下作的更改：
+>更新之后的页面更加漂亮了。新增了一个录音的模块，由于主页面index.wxml只能放五个导航条，所以就只能整合在最后一个影音里面了。不然的话无处安放也是讨嫌！
+
+![新增的录音功能](http://upload-images.jianshu.io/upload_images/3810775-7e433175399e8854.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
+>更新的代码如下，是在```picture.js```这个文件下作的更改：
 
 ```
-
-  "window":{
-    "backgroundTextStyle":"black",
-    "navigationBarBackgroundColor": "#ffddae",
-    "navigationBarTitleText": "Running Man",
-    "navigationBarTextStyle":"black"
+//index.js
+//获取应用实例
+var app = getApp()
+Page({
+  data: {
+source:"http://159.203.250.111/Carly.png",
   },
-   "tabBar": {
-    
 
-    "list": [{
-      "pagePath": "pages/index",
+  
+ listenerButtonChooseImage: function() {
+      var that = this;
+      wx.chooseImage({
+          count: 1,
+          //original原图，compressed压缩图
+          sizeType: ['original'],
+          //album来源相册 camera相机 
+          sourceType: ['album', 'camera'],
+          //成功时会回调
+          success: function(res) {
+                //重绘视图
+              that.setData({
+                  source: res.tempFilePaths,
+                             })
 
-      "backgroundColor": "#adddaa",
-       "iconPath":"/resources/yan1.jpg",
-       "selectedIconPath":"/resources/yan1.jpg"
-    }, {
-      "pagePath": "pages/logs/logs",
+          }
+      })
+  },
+  
+  yulan:function(){
+    var that=this;
+    wx.previewImage({
+   current: 'http://119.29.74.46/myphoto/5.jpg', // 当前显示图片的链接，不填则默认为 urls 的第一张
+  urls: [ 'http://119.29.74.46/myphoto/0.jpg',
+   'http://119.29.74.46/myphoto/1.jpg',
+    'http://119.29.74.46/myphoto/2.jpg',
+     'http://119.29.74.46/myphoto/3.jpg',
+      'http://119.29.74.46/myphoto/4.jpg',
+       'http://119.29.74.46/myphoto/5.jpg',
+       'http://119.29.74.46/myphoto/6.jpg',
+        'http://119.29.74.46/myphoto/7.jpg'],
+  success: function(res){
 
-       "iconPath":"/resources/yan2.jpg",
-       "selectedIconPath":"/resources/yan2.jpg"
-    }
-    ],
-    "color": "#ad8888",
-    "backgroundColor": "#fdfdae"
+   
+  },
+  fail: function() {
+    // fail
+  },
+  complete: function() {
+    // complete
   }
+})
+  },
+
+
+Startrecord:function(){
+wx.startRecord({
+  success: function(res) {
+    var tempFilePath = res.tempFilePath
+      wx.playVoice({
+      filePath: tempFilePath
+    })
+
+    setTimeout(function() {
+        //暂停播放
+      wx.pauseVoice()
+    }, 5000)
+  }
+})
+
+
+    setTimeout(function(){
+      wx.stopVoice()
+    }, 5000)
+},
+
+
+
+Stoprecord:function(){
+    var that=this;
+   wx.stopRecord({
+    success: function(res){
+      // succes
+    },
+    fail: function() {
+      // fail
+    },
+    complete: function() {
+      // complete
+    }
+  })
+},
+
+
+
+
+
+
+
+   onShareAppMessage: function () {
+    return {
+      title: '欢迎使用颜大傻牌跑步计',
+      desc: '将你的战绩分享到~~~',
+      path: '/page/picture/picture.js'
+    }
+  },
+})
 ```
 
-####二、废物利用
->大家伙还记得我一直吐槽的莫名其妙的动画界面吗？现在算是废物利用，我给它增开了一个组件，就是今天的主角--```video```。顾名思义，就是视频播放。内容的话选择了我比较喜欢的东京食尸鬼。不过由于第一季的画质较高，转码估计要转到我开学，所以我就选择了画质较差的第二季。但是手机用户的观看体验应该也差不了多少。文件格式采用的是webm，也就是通用的web播放流媒体的视频文件格式。
+>另外还有在wxml中加入修改：
 
-![本地文件。上传至服务器端也是这样命名的](http://upload-images.jianshu.io/upload_images/3810775-7525241e8fb43713.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+```
+
+<view class="header" style="flex-direction:row;">
+
+<!--通过数据绑定的方式动态获取js数据-->
+<image src="{{source}}" mode="fulltoFill"  class="pic"/>
+
+<!--监听按钮-->
+<button type="primary" bindtap="listenerButtonChooseImage" class="button_anniu">点击我选择相册</button>
+
+<button bindtap="yulan"><image src="/resources/yulan.png"  class="swiper"></image></button>
+
+
+<view>
+<button bindtap="Startrecord" class="button_anniu"> 开始录音 </button>
+<button bindtap="Stoprecord" class="button_anniu">  停止录音</button>
+</view>
+
+
+
+</view>
+```
+>另外，不好意思的声明下：录音功能是做出来了，但是调试的时候，录音是可以完美进行的，但是涉及到播放控制的时候我就直接GG了。API一点都不配合我。
+
+![就这三个API 死命的不配和我，恨不得生啖其肉，如果他有](http://upload-images.jianshu.io/upload_images/3810775-7cec1e769c4ec0ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+  
+
+![能用，但是之后我就不知道它存哪儿去了！！](http://upload-images.jianshu.io/upload_images/3810775-f1af333833ad5567.gif?imageMogr2/auto-orient/strip)
+
+
+####二、UI改进
+>UI一直是我的心头病，没办法，强迫症一出来，几头牛都拉不回来。不把尺寸搞得误差在像素级根本不能让我心安。所以这次改了几个地方。然后感觉好多了。
+
+
+
 
 >代码更新如下：
 
-**<animation.js>**
+**<music.wxml>**
 ```
 
-  data:{
-// Chapters:[1,2,3,4,5,6,7,8,9,10,11,12],
-chapter:0
-},
-
-Next:function(){
-this.setData(
-{
-  chapter:this.data.chapter + 1
-})
-},
-  Last:function(){
-    this.setData(
-    {
-      chapter:this.data.chapter - 1
-    })
-  },
-```
+<view class="header" style="flex-direction:row;">
 
 
-**<animation.wxml>**
-```
-<import src="../common/header.wxml" />
-<import src="../common/footer.wxml" />
+<swiper  class="swiper" indicator-dots="{{indicatorDots}}"
+  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" width="100" height="10">
+    <swiper-item wx:for="{{imgUrls}}">
+      <image src="{{item}}" class="slide-image" class="banner" mode="fullToFill"/>
+    </swiper-item>
+</swiper>
 
-<label class="label" type="primary">东京食尸鬼第{{chapter}}集</label>
-<video class="video" src="http://119.29.74.46/Dj/Dj_{{chapter}}.webm"   objectFit="contain"></video>
+<view class="img">
+<image src="/resources/Carly.png" class="pic" ></image>
 
-
-
-<button bindtap="Last">上一集</button>
-<button bindtap="Next">下一集</button>
-
-
-<view class="container">
-<!--  <template is="header" data="{{title: 'createAnimation'}}"/>
--->
-  <view class="page-body">
-    <view class="page-body-wrapper">
-      <view class="animation-element-wrapper">
-        <view class="animation-element" animation="{{animation}}"></view>
-      </view>
-      <view class="animation-buttons" scroll-y="true">
-        <button class="animation-button" bindtap="rotate">Rotate</button>
-        <button class="animation-button" bindtap="scale"> Scale</button>
-        <button class="animation-button" bindtap="translate">Translate</button>
-        <button class="animation-button" bindtap="skew">Skew</button>
-     
-        <button class="animation-button" bindtap="rotateAndScale">Rotate&Scale</button>
-        <button class="animation-button" bindtap="rotateThenScale">Rotate-Scale</button>
-        <button class="animation-button" bindtap="all">All</button>
-        <button class="animation-button" bindtap="allInQueue">All~</button>
-        <button class="animation-button-reset" bindtap="reset">Reset</button>
-                 <view class="page-body-info">上面分别是旋转、缩放、移动、倾斜</view>
-      </view>
-
-    </view>
-  </view>
-
-  <template is="footer" />
 </view>
+
+<view class="img1">
+<block wx:for="{{song}}" wx:key="id" class="audio">
+<block wx:if="{{item.musicid==count}}"> 
+<audio poster="{{item.poster}}" name="{{item.name}}" author="{{item.author}}" src="{{item.src}}" id="myAudio" controls="true">
+<view style="display:flex;flex-direction: row;">
+<button  type="primary" bindtap="audioPlay" class="button_anniu">Start</button>
+<button type="primary" bindtap="audioPause" class="button_anniu">Pause</button>
+<button type="primary" bindtap="audio14" class="button_anniu">To14s</button>
+<button type="primary" bindtap="audioStart" class="button_anniu">Stop</button>
+</view>
+
+<view style="display:flex;flex-direction: row;">
+<button type="primary" bindtap="NextMusic" class="button_anniu"> Next </button>
+<button  type="primary" bindtap="LastMusic" class="button_anniu">Last</button>
+</view>
+</audio>
+</block>
+</block>
+</view>
+
+
+
+</view>
+
 ```
 
-![效果图](http://upload-images.jianshu.io/upload_images/3810775-3a5954cfe29f9452.gif?imageMogr2/auto-orient/strip)
 
->本次更改，其实还是有问题残留的，因为我暂时没找到办法获取wxml文件中的数值传到js文件中的办法。大家可以看到上面的js文件中的data里面有一个Chapters被注释了。我的本来的想法是利用wx:for="{{Chapters}}"来直接把所有的视频链接做成按钮放到页面上去的。就类似下面的这样:
+**《music.wxss》**
+```
 
-![每一集配备一个按钮，羡慕](http://upload-images.jianshu.io/upload_images/3810775-e2cf1a407813a514.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-> 很可惜的没有成功回调wxml中的item的id，看我网上的大神说，利用wx:for-index可以回调id号，然后利用currentTarget.id;获取id并导入js文件中，但是很可惜我并没有成功。不过如果最后还是不行的话，可以采用蠢办法：一个按钮一个事件绑定的野路子。这样不需要什么的回调，你选择哪个按钮，我就给你专门的写一个事件，反正一部动漫，写死了也就几十个按钮事件绑定，而且代码重用率接近99%，意思就是说：复制一下代码，然后改一两个参数就可以了。但是这样很蠢，所以我希望可以找到更好的办法。目前来看，还没找到，如果找到了，后期我会写在评论中。小程序最近玩的很多了。要换点花样了。然后，后天就去学校了，真是悲伤。在家的效率很低，但是胜在自由灵活在。在学校，有点怕！
+.banner{
+    width: 750rpx;
+    height: 80rpx;
+   position: center;
+
+}
+
+.img{
+    position: center;
+    padding-left: 100rpx;
+    padding-right: 100rpx;
+}
+
+.img1{
+    position: center;
+    padding-left: 75rpx;
+    
+}
+
+.pic{
+    width: 550rpx;
+    height:  640rpx;
+
+}
+
+
+
+.button_anniu{
+    width: 150rpx;
+    height: 100rpx;
+  margin: 50rpx auto; 
+    display: flex;
+
+}
+
+.swiper{
+    width: 750rpx;
+    height: 80rpx;
+    position: center;
+}
+```
+
+![效果图，好看了点吧
+](http://upload-images.jianshu.io/upload_images/3810775-71e7ef3e155efbb2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
+>主页的改进，我觉得很好看咯！！而且加了滚条，可以滚出三个图。
+
+**《index.wxml》**
+```
+<view class="index">
+    <!--标题-->
+
+    <view class="header"  >
+       <view style="flex-direction:row;"> <image class="icon" src="/resources/fuckrun.png" mode="aspectFill"/></view>
+
+        <view class="bigTitle">Fucking Running</view>
+        <view class="desc">The First Program of HustWolf and XNC</view>
+    </view>
+
+    <view class="body">
+        <view class="widget">
+            <block wx:for="{{pageNames}}">
+                <view class="widgets__item">
+                    <navigator class="navigator-hover" url="{{item.id}}/{{item.id}}">{{item.name}}</navigator>
+                </view>
+            </block>
+        </view>
+    </view>
+</view>
+
+
+ <scroll-view scroll-y="true" style="height: 630rpx;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+
+<image  class="pic" src="/resources/run2.png" mode="aspectFill"/>
+<image  class="pic" src="/resources/run1.png" mode="aspectFill"/>
+<image  class="pic" src="/resources/run0.png" mode="aspectFill"/>
+
+
+</scroll-view>
+
+```
+
+
+
+
+
+![看看效果咯，漂亮啊](http://upload-images.jianshu.io/upload_images/3810775-4cb2d507c9f07086.gif?imageMogr2/auto-orient/strip)
+
 
 
 ----
->作为半个强迫症，我怎么着都想着改善UI 所以刚刚发觉那个上一集下一集的按钮很丑，而且上边的label部队称，所以换了个我比较喜欢的，把样式文件改了下，好看了不少了：
+>还是需要改进啊。没办法了。我现在是下午七点三十四，但是我还没吃饭，有点饿！所以我待会还要走到东边去，大概半个小时，然后再去我亲爱的，亲爱的韵苑大酒店吃一顿，如果有黄焖鸡米饭就大运临头了，没有的话吃一份卤鸭饭就行了。。
+
+![时间](http://upload-images.jianshu.io/upload_images/3810775-aedd1e535095aaf6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
-![好看不少了](http://upload-images.jianshu.io/upload_images/3810775-c37a1a5980fd681c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
->具体改动了：
 
-**<animation.wxss>**
-```
-.page-body-wrapper {
-  flex-grow: 1;
-}
-.index{
-    background-color: #Eeefaf;
-    font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
-    flex: 1;
-    min-height: 100%;
-    font-size: 32rpx;
-}
-.label
-{
-  width: 750rpx;
-  position:center;
-  padding-left: 250rpx
-}
-```
-
-**<animation.wxml>**
-```
-
-<button type="primary" bindtap="Last">上一集</button>
-
-<button type="primary" bindtap="Next">下一集</button>
-```
 #结束语
->小程序算是假期的一个调剂吧，不然可能就真的天天看小说，然后逛逛B站了。额，不知道有没有追看我的文章的body（除了我已知的那位）？很Sorry，明天可能就会很少更新了。后天去县城，大后天到学校。然后我就要开始我的拼命三郎之路了。如果下学期运气够好，计算机三四级一刀斩，成绩分数够我保研，那么以后我估计爆文多的是，如果运气不够，那么以后我估计就会坎坷了。在家积蓄了一个月的洪荒之力，已经按耐不住了。去了学校，看命吧！
-
-![现在学校群最火的图](http://upload-images.jianshu.io/upload_images/3810775-4506404e0beb5c39.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+>小程序算是假期的一个调剂吧，不过，貌似被我成功的带到大三下了。主要是不能持续产出，我会松懈，所以寒假的氛围其实还是蛮好的。在学校就贝格忠东喜支配了。心塞，虽然效率高了不少，但是还是想家了。最想家的一次。
 
 
+-------
 
+>今天是正式开学的第一天，我得证明下：
 
-
-
-![全部功能的展示。飞速，可能看不清，如果有兴趣请你看文章！](http://upload-images.jianshu.io/upload_images/3810775-34c690fd8a2d59f9.gif?imageMogr2/auto-orient/strip)
+![我这是自虐。。。每次看到都会想家。。。我不是恋家的人啊](http://upload-images.jianshu.io/upload_images/3810775-f848ee3b7aa15427.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
 
->另外，明天可能开始看看机器学习的内容。有兴趣的朋友可以跟上。恩，当然，也许是iOS的开发，还没准备干嘛但是总是要找点事情干的。讲不好发现别的不好玩，又回来折腾小程序了呢！
 
 
 
->诸君，拔剑吧！你们要的弹幕君来了。。容我展示下：
-
-
-![我精心制作的弹幕，心累死我了](http://upload-images.jianshu.io/upload_images/3810775-9f76c094605dd8db.gif?imageMogr2/auto-orient/strip)
+![全部功能的展示（还是以前的，这次改动太小了 不截图了）。飞速，可能看不清，如果有兴趣请你看文章！](http://upload-images.jianshu.io/upload_images/3810775-34c690fd8a2d59f9.gif?imageMogr2/auto-orient/strip)
 
 
 
->更新之后的代码节选，对照前面的就可以直接找出我修改了哪些地方了！
-
-**<animation.js>**
-```
-function getRandomColor () {
-  let rgb = []
-  for (let i = 0 ; i < 3; ++i){
-    let color = Math.floor(Math.random() * 256).toString(16)
-    color = color.length == 1 ? '0' + color : color
-    rgb.push(color)
-  }
-  return '#' + rgb.join('')
-} 
-
-Page({
-  onReady: function () {
-     this.videoContext = wx.createVideoContext('myVideo')
-    this.animation = wx.createAnimation({
-  transformOrigin: "50% 50%",
-  duration: 1000,
-  timingFunction: "ease",
-  delay: 0
-})
-```
-**<animation.wxml>**
-```
-<video  id="myVideo" class="video" src="http://119.29.74.46/Dj/Dj_{{chapter}}.webm"   objectFit="contain" danmu-list="{{danmuList}}" enable-danmu danmu-btn controls></video>
-
-
-   <input bindblur="bindInputBlur" placeholder="来这儿输入你的弹幕！倾泻弹药吧！"/>
-    <button type="primary" bindtap="bindSendDanmu">发送弹幕</button>
-<button type="primary" bindtap="Last">上一集</button>
-
-<button type="primary" bindtap="Next">下一集</button>
-```
 
 #个人宣言
 >知识传递力量，技术无国界，文化改变生活！
