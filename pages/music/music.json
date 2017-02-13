@@ -1,4 +1,5 @@
 {
+  
     "navigationBarTitleText": "跑完步，来点Music放松一下",
    "tabBar": {
     
@@ -6,7 +7,7 @@
     "list": [{
       "pagePath": "pages/index",
 
-      "backgroundColor": "#adddaa",
+      "backgroundColor": "#ffeedd",
        "iconPath":"/resources/yan1.jpg",
        "selectedIconPath":"/resources/yan1.jpg"
     }, {

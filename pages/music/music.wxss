@@ -5,27 +5,32 @@
    position: center;
 
 }
-.audio{
-    width: 750rpx;
- 
-   position: center;
 
+.img{
+    position: center;
+    padding-left: 100rpx;
+    padding-right: 100rpx;
 }
 
+.img1{
+    position: center;
+    padding-left: 75rpx;
+    
+}
 
 .pic{
-    width: 750rpx;
-    height: 850rpx;
-    padding: 75;
-    margin-top: 20;
-    margin-bottom:100; 
+    width: 550rpx;
+    height:  640rpx;
+
 }
 
 
 
 .button_anniu{
-    width: 750rpx;
-    height:100rpx;
+    width: 150rpx;
+    height: 100rpx;
+  margin: 50rpx auto; 
+    display: flex;
 
 }
 
