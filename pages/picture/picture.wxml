@@ -8,5 +8,13 @@
 <button type="primary" bindtap="listenerButtonChooseImage" class="button_anniu">点击我选择相册</button>
 
 <button bindtap="yulan"><image src="/resources/yulan.png"  class="swiper"></image></button>
-<button bindtap="" class="button_anniu"> 发布 </button>
+
+
+<view>
+<button bindtap="Startrecord" class="button_anniu"> 开始录音 </button>
+<button bindtap="Stoprecord" class="button_anniu">  停止录音</button>
+</view>
+
+
+
 </view>
