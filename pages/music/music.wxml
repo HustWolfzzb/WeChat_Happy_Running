@@ -15,9 +15,12 @@
 </view>
 
 <view class="img1">
+
+
 <block wx:for="{{song}}" wx:key="id" class="audio">
 <block wx:if="{{item.musicid==count}}"> 
 <audio poster="{{item.poster}}" name="{{item.name}}" author="{{item.author}}" src="{{item.src}}" id="myAudio" controls="true">
+
 <view style="display:flex;flex-direction: row;">
 <button  type="primary" bindtap="audioPlay" class="button_anniu">Start</button>
 <button type="primary" bindtap="audioPause" class="button_anniu">Pause</button>
